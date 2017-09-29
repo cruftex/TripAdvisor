@@ -1,11 +1,12 @@
 package app.Weather;
 
 import app.Model.Validable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.eclipse.jetty.util.StringUtil;
 
 @Data
-public class WeatherDto implements Validable {
+public class WeatherDto {
     public WeatherDto() {}
     public WeatherDto(double temp , String desc) {
         celsiusTemp = temp;
@@ -14,7 +15,7 @@ public class WeatherDto implements Validable {
     private double celsiusTemp;
     private String description;
 
-
+    @JsonIgnore
     public boolean isValid() {
         return StringUtil.isNotBlank(description);
     }

@@ -1,9 +1,12 @@
 package app.Trip;
 
+import app.Weather.WeatherDto;
+
 public class StepDto {
     public String duration ;
     public String html_instructions;
     public Location end_location;
+    public WeatherDto weather ;
 
     public static StepDto fromStep(Step step){
         StepDto stepDto = new StepDto();
