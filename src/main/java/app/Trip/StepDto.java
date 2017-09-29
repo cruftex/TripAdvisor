@@ -13,7 +13,7 @@ public class StepDto {
         stepDto.end_location = step.end_location;
         stepDto.duration = step.duration.text;
         stepDto.html_instructions = step.html_instructions;
-
         return stepDto;
     }
+
 }

@@ -1,4 +1,8 @@
 package app.Model;
 
-public class IDirectionProvider {
+import app.Trip.MapDirections;
+
+public interface IDirectionProvider {
+    MapDirections getDirections(String from,String to);
+
 }

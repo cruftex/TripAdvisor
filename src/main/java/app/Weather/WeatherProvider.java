@@ -18,6 +18,7 @@ public class WeatherProvider implements IWeatherProvider {
     //weather cache using Cache2K lib
     Cache<String, WeatherDto> weatherCache = initCache();
 
+
     @Override
     public WeatherDto getWeather(double lat, double lng) {
         WeatherDto dto =  weatherCache.get(lat + ":" + lng);

@@ -13,7 +13,6 @@ public class Application {
 
     public static void main(String[] args) {
 
-        CacheTest();
         TripAdvisor adviser = new TripAdvisor();
 
         //Trip Route
@@ -24,22 +23,13 @@ public class Application {
                     response.status(HTTP_BAD_REQUEST); //user incorrect request
                     return "Incorrect trip request.";
                 }
-                return RestApiUtils.jsonPretify(adviser.getTripAdvice(tripRequest));
+                return RestApiUtils.jsonPretify(adviser.getTripAdvice(tripRequest.getFrom(),tripRequest.getTo()));
 
             } catch (Exception e) {
                 response.status(HTTP_INTERNAL_ERROR); //if we got here , its our fault.
                 return e.toString();
             }
         });
-    }
-
-    private static void CacheTest() {
-        try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
 }

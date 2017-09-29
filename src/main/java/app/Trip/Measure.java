@@ -6,4 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Measure {
     public String text ;
     public int value;
+
+    public Measure(){}
+    public Measure(int val, String txt){
+        value = val;
+        text = txt;
+    }
 }
