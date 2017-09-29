@@ -1,4 +1,9 @@
 package app.Model;
 
-public class ITripAdvisor {
+import app.Trip.TripAdviceDto;
+import app.Trip.TripRequest;
+
+public interface ITripAdvisor {
+    public TripAdviceDto getTripAdvice(TripRequest request);
 }
+

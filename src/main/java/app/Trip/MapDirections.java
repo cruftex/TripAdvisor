@@ -3,7 +3,7 @@ package app.Trip;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TripDirections {
+public class MapDirections {
     public Route[] routes;
 
 
@@ -11,7 +11,7 @@ public class TripDirections {
         return (routes != null && routes.length > 0) ? routes[0].distance() : 0;
     }
     public int duration() {
-        return (routes != null && routes.length > 0) ? routes[0].duration() : 0;
+        return (routes != null && routes.length > 0) ? routes[0].duration() / 60 : 0;
     }
 
     public Step[] steps() {

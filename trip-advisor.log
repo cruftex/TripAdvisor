@@ -170,3 +170,101 @@
 2017-09-29 17:54:02 INFO  Server:345 - jetty-9.3.6.v20151106
 2017-09-29 17:54:02 INFO  ServerConnector:270 - Started ServerConnector@12797900{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
 2017-09-29 17:54:02 INFO  Server:397 - Started @1030ms
+2017-09-29 18:14:56 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:14:57 INFO  log:186 - Logging initialized @920ms
+2017-09-29 18:14:57 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:14:57 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:14:57 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:14:57 INFO  ServerConnector:270 - Started ServerConnector@e9dde0d{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:14:57 INFO  Server:397 - Started @1064ms
+2017-09-29 18:39:46 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:39:47 INFO  log:186 - Logging initialized @942ms
+2017-09-29 18:39:47 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:39:47 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:39:47 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:39:47 INFO  ServerConnector:270 - Started ServerConnector@1318fe17{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:39:47 INFO  Server:397 - Started @1112ms
+2017-09-29 18:41:31 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:41:31 INFO  log:186 - Logging initialized @921ms
+2017-09-29 18:41:31 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:41:31 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:41:31 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:41:31 INFO  ServerConnector:270 - Started ServerConnector@640fbf60{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:41:31 INFO  Server:397 - Started @1087ms
+2017-09-29 18:41:54 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:41:54 INFO  log:186 - Logging initialized @901ms
+2017-09-29 18:41:54 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:41:54 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:41:54 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:41:55 INFO  ServerConnector:270 - Started ServerConnector@298c6cd1{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:41:55 INFO  Server:397 - Started @1015ms
+2017-09-29 18:43:00 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:43:00 INFO  log:186 - Logging initialized @1109ms
+2017-09-29 18:43:01 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:43:01 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:43:01 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:43:01 INFO  ServerConnector:270 - Started ServerConnector@6dca4963{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:43:01 INFO  Server:397 - Started @1291ms
+2017-09-29 18:46:53 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:46:53 INFO  log:186 - Logging initialized @895ms
+2017-09-29 18:46:53 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:46:53 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:46:53 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:46:53 INFO  ServerConnector:270 - Started ServerConnector@c991fa2{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:46:53 INFO  Server:397 - Started @1085ms
+2017-09-29 18:47:25 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:47:25 INFO  log:186 - Logging initialized @1160ms
+2017-09-29 18:47:25 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:47:25 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:47:25 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:47:25 INFO  ServerConnector:270 - Started ServerConnector@3adee93{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:47:25 INFO  Server:397 - Started @1378ms
+2017-09-29 18:48:27 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:48:28 INFO  log:186 - Logging initialized @1061ms
+2017-09-29 18:48:28 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:48:28 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:48:28 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:48:28 INFO  ServerConnector:270 - Started ServerConnector@4ee1474c{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:48:28 INFO  Server:397 - Started @1254ms
+2017-09-29 18:48:55 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:48:55 INFO  log:186 - Logging initialized @1076ms
+2017-09-29 18:48:55 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:48:55 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:48:55 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:48:55 INFO  ServerConnector:270 - Started ServerConnector@787c8790{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:48:55 INFO  Server:397 - Started @1333ms
+2017-09-29 18:49:23 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:49:24 INFO  log:186 - Logging initialized @1046ms
+2017-09-29 18:49:24 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:49:24 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:49:24 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:49:24 INFO  ServerConnector:270 - Started ServerConnector@6deafe2e{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:49:24 INFO  Server:397 - Started @1265ms
+2017-09-29 18:51:20 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:51:20 INFO  log:186 - Logging initialized @883ms
+2017-09-29 18:51:20 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:51:20 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:51:20 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:51:21 INFO  ServerConnector:270 - Started ServerConnector@45cee1f2{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:51:21 INFO  Server:397 - Started @1047ms
+2017-09-29 18:51:51 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:51:51 INFO  log:186 - Logging initialized @885ms
+2017-09-29 18:51:51 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:51:51 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:51:51 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:51:51 INFO  ServerConnector:270 - Started ServerConnector@45cee1f2{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:51:51 INFO  Server:397 - Started @1030ms
+2017-09-29 18:52:55 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:52:55 INFO  log:186 - Logging initialized @953ms
+2017-09-29 18:52:55 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:52:55 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:52:55 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:52:56 INFO  ServerConnector:270 - Started ServerConnector@45cee1f2{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:52:56 INFO  Server:397 - Started @1126ms
+2017-09-29 18:53:09 INFO  Cache2kCoreProviderImpl:229 - cache2k starting. version=1.0.0.Final, build=undefined, defaultImplementation=HeapCache
+2017-09-29 18:53:10 INFO  log:186 - Logging initialized @904ms
+2017-09-29 18:53:10 INFO  EmbeddedJettyServer:125 - == Spark has ignited ...
+2017-09-29 18:53:10 INFO  EmbeddedJettyServer:126 - >> Listening on 0.0.0.0:4567
+2017-09-29 18:53:10 INFO  Server:345 - jetty-9.3.6.v20151106
+2017-09-29 18:53:10 INFO  ServerConnector:270 - Started ServerConnector@2d6c48{HTTP/1.1,[http/1.1]}{0.0.0.0:4567}
+2017-09-29 18:53:10 INFO  Server:397 - Started @1063ms
