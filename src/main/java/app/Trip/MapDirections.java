@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TripDirections {
     public Route[] routes;
-    public String status ;
 
 
     public int distance() {

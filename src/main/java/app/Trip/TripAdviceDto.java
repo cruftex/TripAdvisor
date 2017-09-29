@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TripAdvice {
+public class TripAdviceDto {
     private String origin;
     private String destination;
     private int totalDurationInMinutes ;
@@ -14,7 +14,7 @@ public class TripAdvice {
 
     private List<StepDto> steps;
 
-    public TripAdvice(String origin, String destination){
+    public TripAdviceDto(String origin, String destination){
         this.origin = origin;
         this.destination = destination;
     }
