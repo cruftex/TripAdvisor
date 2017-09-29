@@ -1,11 +1,15 @@
 package app.Trip;
 
-import app.utils.GoogleApiConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 public class TripAdvisor {
@@ -13,19 +17,27 @@ public class TripAdvisor {
 
     private ObjectMapper mapper = new ObjectMapper();
 
+    ///The Tripe Advice main function
     public TripAdvice getTripAdvice(TripRequest request) {
-        Directions directions = getDirections(request);
-        if (directions == null)
-            System.out.println("No Directions found");
-        return directions == null ? null :
-                new TripAdvice(
-                        request.getFrom(),
-                        request.getTo(),
-                        directions.defaultRouteDuration(),
-                        directions.defaultRouteDistance());
+
+        //build advice response
+        TripAdvice tripAdvice = new TripAdvice(request.getFrom(),request.getTo());
+        //1. get directions
+        TripDirections directions = getDirections(request);
+        if(directions == null)
+            return tripAdvice;
+
+        //2. Weather -> Parallel
+        List<StepDto> stepsDto = Arrays.stream(directions.steps()).map(step-> StepDto.fromStep(step)).collect(Collectors.toList());
+        tripAdvice.setSteps(stepsDto);
+        return tripAdvice;
+
+        //3. Calc Recommendation
+
+        //return tripAdvice;
     }
 
-    private Directions getDirections(TripRequest request) {
+    private TripDirections getDirections(TripRequest request) {
         try {
             HttpResponse<String> directionResponse = Unirest.post(GoogleApiConfig.ApiEndPoint)
                     .header("accept", "application/json")
@@ -34,7 +46,7 @@ public class TripAdvisor {
                     .queryString("destination", request.getTo())
                     .asString();
 
-            return mapper.readValue(directionResponse.getBody(), Directions.class);
+            return mapper.readValue(directionResponse.getBody(), TripDirections.class);
 
         } catch (UnirestException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package app.Model;
 
-import app.Weather.WeatherData;
+import app.Weather.WeatherDto;
 
 public interface IWeatherProvider {
-    WeatherData getWeather(double lat, double lng);
+    WeatherDto getWeather(double lat, double lng);
 }

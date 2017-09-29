@@ -1,5 +1,5 @@
 package app.Trip;
-        import app.utils.*;
+        import app.Model.Validable;
         import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
         import lombok.Data;
         import org.eclipse.jetty.util.StringUtil;
@@ -8,7 +8,7 @@ package app.Trip;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class TripRequest implements Validable{
+public class TripRequest implements Validable {
     private String from ;
     private String to ;
 
