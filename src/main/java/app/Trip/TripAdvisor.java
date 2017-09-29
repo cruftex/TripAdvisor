@@ -29,7 +29,7 @@ public class TripAdvisor {
         try {
             HttpResponse<String> directionResponse = Unirest.post(GoogleApiConfig.ApiEndPoint)
                     .header("accept", "application/json")
-                    .queryString("key", GoogleApiConfig.GoogleApiKey)
+                    .queryString("key", GoogleApiConfig.ApiKey)
                     .queryString("origin", request.getFrom())
                     .queryString("destination", request.getTo())
                     .asString();
@@ -42,7 +42,5 @@ public class TripAdvisor {
             e.printStackTrace();
         }
         return null;
-
-
     }
 }

@@ -1,8 +1,8 @@
 package app.Trip;
-import app.utils.*;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import org.eclipse.jetty.util.StringUtil;
+        import app.utils.*;
+        import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+        import lombok.Data;
+        import org.eclipse.jetty.util.StringUtil;
 
 
 
