@@ -4,8 +4,13 @@ import app.Model.IDirectionProvider;
 import app.Model.ITripAdvisor;
 import app.Model.IWeatherProvider;
 import app.TripRules.TripAdvicePredicate;
+import app.Weather.WeatherConfig;
+import app.Weather.WeatherDto;
 import app.Weather.WeatherProvider;
 import org.apache.log4j.Logger;
+import org.cache2k.Cache;
+import org.cache2k.Cache2kBuilder;
+import org.cache2k.integration.CacheLoader;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,9 +20,12 @@ import java.util.concurrent.*;
 
 public class TripAdvisor implements ITripAdvisor {
 
+    final static Logger logger = Logger.getLogger(TripAdvisor.class);
+
     private IWeatherProvider weatherProvider;
     private IDirectionProvider directionProvider;
-    final static Logger logger = Logger.getLogger(TripAdvisor.class);
+    private Cache<String, MapDirections> directionsCache ;
+
 
     public TripAdvisor() {
         this(new WeatherProvider(), new GoogleDirectionProvider());
@@ -26,6 +34,7 @@ public class TripAdvisor implements ITripAdvisor {
     public TripAdvisor(IWeatherProvider weatherProvider, IDirectionProvider directionProvider) {
         this.weatherProvider = weatherProvider;
         this.directionProvider = directionProvider;
+        directionsCache = initCache();
     }
 
     ///The Tripe Advice main function
@@ -35,7 +44,9 @@ public class TripAdvisor implements ITripAdvisor {
             //build advice response
             TripAdviceDto tripAdvice = new TripAdviceDto(from, to);
             //1. get directions
-            MapDirections directions = directionProvider.getDirections(from, to);
+            String key = from + ":" + to;
+            MapDirections directions = directionsCache.get(key);
+
             if (directions == null || directions.routes.length == 0)
                 return tripAdvice;
             //2. Weather -> (Parallel)
@@ -54,6 +65,23 @@ public class TripAdvisor implements ITripAdvisor {
         }
     }
 
+    private Cache<String,MapDirections> initCache() {
+        return new Cache2kBuilder<String, MapDirections>() {}
+                .name("directionsCache")
+                .expireAfterWrite(5, TimeUnit.MINUTES)    // expire/refresh after 5 minutes
+                .resilienceDuration(30, TimeUnit.SECONDS) // cope with at most 30 seconds
+                .entryCapacity(1000) //store last 1000 items
+                .loader(new CacheLoader<String, MapDirections>() {
+                    @Override
+                    public MapDirections load(String s) throws Exception {
+                        String[] args = s.split(":");
+                        String from = args[0];
+                        String to = args[1];
+                        return directionProvider.getDirections(from, to);
+                    }
+                })
+                .build();
+    }
 
     private List<StepDto> fetchWeatherInfo(MapDirections directions) {
         List<StepDto> stepsDto = Arrays.stream(directions.steps()).map(step -> StepDto.fromStep(step)).collect(Collectors.toList());

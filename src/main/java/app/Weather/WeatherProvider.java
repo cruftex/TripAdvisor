@@ -25,6 +25,23 @@ public class WeatherProvider implements IWeatherProvider {
         return dto.isValid() ? dto : null;
     }
 
+    private Cache<String, WeatherDto> initCache() {
+        return new Cache2kBuilder<String, WeatherDto>() {}
+            .name("weatherCache")
+            .expireAfterWrite(WeatherConfig.ttlInMinutes, TimeUnit.MINUTES)    // expire/refresh after 5 minutes
+            .resilienceDuration(30, TimeUnit.SECONDS) // cope with at most 30 seconds
+            .entryCapacity(10000) //store last 10K items
+            .loader(new CacheLoader<String, WeatherDto>() {
+                @Override
+                public WeatherDto load(String s) throws Exception {
+                    String[] args = s.split(":");
+                    double lat = Double.parseDouble(args[0]);
+                    double lng = Double.parseDouble(args[1]);
+                    return weatherLookup(lat, lng);
+                }
+            })
+            .build();
+    }
 
     private WeatherDto weatherLookup(double lat, double lng) {
         try {
@@ -45,6 +62,7 @@ public class WeatherProvider implements IWeatherProvider {
         return null;
     }
 
+
     private WeatherDto parseFromResponse(String body) {
         try {
             JSONObject obj = new JSONObject(body);
@@ -55,24 +73,6 @@ public class WeatherProvider implements IWeatherProvider {
             logger.error("Could not parse Json weather from response : "  +ex.getMessage());
             return new WeatherDto();
         }
-    }
-
-    private Cache<String, WeatherDto> initCache() {
-        return new Cache2kBuilder<String, WeatherDto>() {}
-            .name("weatherCache")
-            .expireAfterWrite(WeatherConfig.ttlInMinutes, TimeUnit.MINUTES)    // expire/refresh after 5 minutes
-            .resilienceDuration(30, TimeUnit.SECONDS) // cope with at most 30 seconds
-            .entryCapacity(40000)
-            .loader(new CacheLoader<String, WeatherDto>() {
-                @Override
-                public WeatherDto load(String s) throws Exception {
-                    String[] args = s.split(":");
-                    double lat = Double.parseDouble(args[0]);
-                    double lng = Double.parseDouble(args[1]);
-                    return weatherLookup(lat, lng);
-                }
-            })
-            .build();
     }
 
     
