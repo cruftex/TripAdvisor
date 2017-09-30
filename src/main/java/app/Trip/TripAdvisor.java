@@ -24,7 +24,7 @@ public class TripAdvisor implements ITripAdvisor {
 
     private IWeatherProvider weatherProvider;
     private IDirectionProvider directionProvider;
-    private Cache<String, MapDirections> directionsCache ;
+    private Cache<String, MapDirections> directionsCache  = initCache();
 
 
     public TripAdvisor() {
@@ -65,9 +65,8 @@ public class TripAdvisor implements ITripAdvisor {
         }
     }
 
-    private Cache<String,MapDirections> initCache() {
+    private  Cache<String,MapDirections> initCache() {
         return new Cache2kBuilder<String, MapDirections>() {}
-                .name("directionsCache")
                 .expireAfterWrite(5, TimeUnit.MINUTES)    // expire/refresh after 5 minutes
                 .resilienceDuration(30, TimeUnit.SECONDS) // cope with at most 30 seconds
                 .entryCapacity(1000) //store last 1000 items
