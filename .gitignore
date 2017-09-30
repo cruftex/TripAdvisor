@@ -60,6 +60,7 @@ Temporary Items
 
 # User-specific stuff:
  .idea/workspace.xml
+ workspace.xml
  .idea/tasks.xml
  .idea/dictionaries
 
