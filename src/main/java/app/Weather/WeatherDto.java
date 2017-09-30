@@ -1,6 +1,5 @@
 package app.Weather;
 
-import app.Model.Validable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.eclipse.jetty.util.StringUtil;

@@ -1,4 +1,5 @@
 package app.Model;
 
-public class IMetricProvider {
+public interface IMetricProvider {
+      void ReportTiming(String metric, long timeInms);
 }

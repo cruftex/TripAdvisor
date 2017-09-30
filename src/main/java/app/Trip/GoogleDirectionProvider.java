@@ -4,13 +4,14 @@ import app.Model.IDirectionProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import org.apache.log4j.Logger;
 
 public class GoogleDirectionProvider implements IDirectionProvider {
 
     //TODO : put in config File
     private static final String ApiEndPoint = "https://maps.googleapis.com/maps/api/directions/json";
     private static final String ApiKey = "AIzaSyCRnR0uSv0moUkSd6dK2OfH1tijkLaU8W0";
+    final static Logger logger = Logger.getLogger(GoogleDirectionProvider.class);
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -23,12 +24,11 @@ public class GoogleDirectionProvider implements IDirectionProvider {
                     .queryString("destination", to)
                     .asString();
 
-            return mapper.readValue(directionResponse.getBody(), MapDirections.class);
+            MapDirections directions =  mapper.readValue(directionResponse.getBody(), MapDirections.class);
+            return directions;
 
-        } catch (UnirestException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Could not fetch directions. Reason :" + e.getMessage());
         }
         return null;
     }

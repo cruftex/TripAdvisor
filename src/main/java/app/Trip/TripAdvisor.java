@@ -5,7 +5,7 @@ import app.Model.ITripAdvisor;
 import app.Model.IWeatherProvider;
 import app.TripRules.TripAdvicePredicate;
 import app.Weather.WeatherProvider;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,9 +15,9 @@ import java.util.concurrent.*;
 
 public class TripAdvisor implements ITripAdvisor {
 
-    private ObjectMapper mapper = new ObjectMapper();
     private IWeatherProvider weatherProvider;
     private IDirectionProvider directionProvider;
+    final static Logger logger = Logger.getLogger(TripAdvisor.class);
 
     public TripAdvisor() {
         this(new WeatherProvider(), new GoogleDirectionProvider());
@@ -36,7 +36,7 @@ public class TripAdvisor implements ITripAdvisor {
             TripAdviceDto tripAdvice = new TripAdviceDto(from, to);
             //1. get directions
             MapDirections directions = directionProvider.getDirections(from, to);
-            if (directions == null)
+            if (directions == null || directions.routes.length == 0)
                 return tripAdvice;
             //2. Weather -> (Parallel)
             List<StepDto> stepsDto = fetchWeatherInfo(directions);
@@ -49,7 +49,7 @@ public class TripAdvisor implements ITripAdvisor {
             return tripAdvice;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Could not getTrip Advice. Reason " + e.getStackTrace());
             return null;
         }
     }
@@ -70,7 +70,7 @@ public class TripAdvisor implements ITripAdvisor {
                         }
                     }).collect(Collectors.summingInt(Integer::intValue));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Could not fetchWeatherInfo. Reason " + e.getStackTrace());
         }
         return stepsDto;
     }

@@ -3,7 +3,6 @@ package app.TripRules;
 import app.Trip.StepDto;
 import app.Trip.TripAdviceDto;
 
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public class TripAdvicePredicate {
@@ -14,7 +13,8 @@ public class TripAdvicePredicate {
 
     public  static Predicate<StepDto> isIllegalStep() {
         return s ->
-                s.weather.getCelsiusTemp() > MaxCellciusTemp
+                s.weather == null // in case we dont have weather info, move on
+                || s.weather.getCelsiusTemp() > MaxCellciusTemp
                 || s.weather.getCelsiusTemp() < MinCellciusTemp;
     }
 

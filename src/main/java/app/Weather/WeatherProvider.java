@@ -3,7 +3,7 @@ package app.Weather;
 import app.Model.IWeatherProvider;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import org.apache.log4j.Logger;
 import org.cache2k.Cache;
 import org.cache2k.Cache2kBuilder;
 import org.cache2k.integration.CacheLoader;
@@ -17,7 +17,7 @@ public class WeatherProvider implements IWeatherProvider {
 
     //weather cache using Cache2K lib
     Cache<String, WeatherDto> weatherCache = initCache();
-
+    final static Logger logger = Logger.getLogger(WeatherProvider.class);
 
     @Override
     public WeatherDto getWeather(double lat, double lng) {
@@ -39,10 +39,8 @@ public class WeatherProvider implements IWeatherProvider {
                 return parseFromResponse(weatherResponse.getBody());
             return new WeatherDto();
 
-        } catch (UnirestException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Could not fetch weather data. Reason :" + e.getMessage());
         }
         return null;
     }
@@ -54,6 +52,7 @@ public class WeatherProvider implements IWeatherProvider {
             String desc = obj.getJSONArray("weather").getJSONObject(0).getString("description");
             return new WeatherDto(temp, desc);
         } catch (JSONException ex) {
+            logger.error("Could not parse Json weather from response : "  +ex.getMessage());
             return new WeatherDto();
         }
     }
