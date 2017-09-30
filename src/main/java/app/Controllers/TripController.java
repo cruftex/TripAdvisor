@@ -65,22 +65,8 @@ public class TripController {
         try {
 
             trip = new TripRequest(request.queryParams("from"), request.queryParams("to"));
-            if (trip.isValid())
-                return trip;
-        } catch (Exception e) { }
-
-        //method 2 : body parsing
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-            trip = mapper.readValue(request.body(), TripRequest.class);
             return trip.isValid() ? trip : null;
-
-        } catch (JsonParseException jpe) {
-            return null;
-        } catch (IOException ex) {
-            return null;
-        }
+        } catch (Exception e) { return null;}
 
     }
 
