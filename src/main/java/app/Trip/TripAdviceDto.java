@@ -1,6 +1,7 @@
 package app.Trip;
 
 import app.Model.Validable;
+import app.TripRules.TripAdvicePredicate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.eclipse.jetty.util.StringUtil;
@@ -17,9 +18,16 @@ public class TripAdviceDto implements Validable {
 
     private List<StepDto> steps;
 
-    public TripAdviceDto(String origin, String destination){
-        this.origin = origin;
-        this.destination = destination;
+    public TripAdviceDto(TripRequest request){
+        this.origin = request.getFrom();
+        this.destination = request.getTo();
+    }
+
+    public void setTripData(List<StepDto> steps,int totalDuration,int totalDistance){
+        this.steps = steps;
+        this.totalDistanceInMeters = totalDistance;
+        this.totalDurationInMinutes = totalDuration;
+        travelAdvice = TripAdvicePredicate.isTripLegal(this);
     }
 
     @Override

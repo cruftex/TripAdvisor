@@ -1,6 +1,7 @@
 package app.Controllers;
 
 import app.Model.IMetricProvider;
+import app.Model.ITripAdvisor;
 import app.Trip.TripAdviceDto;
 import app.Trip.TripAdvisor;
 import app.Trip.TripRequest;
@@ -26,11 +27,12 @@ import static spark.Spark.get;
 public class TripController {
 
     final static Logger logger = Logger.getLogger(TripController.class);
-    TripAdvisor adviser = new TripAdvisor();
-    IMetricProvider metricProvider = new SimpleMetricReporter();
+    ITripAdvisor adviser ;
+    IMetricProvider metricProvider ;
 
-    public TripController() {
-
+    public TripController(ITripAdvisor adviser,IMetricProvider metricProvider) {
+        this.adviser = adviser;
+        this.metricProvider = metricProvider;
         get("/trip", (request, response) -> {
             try {
                 //measure time of handling
@@ -40,7 +42,7 @@ public class TripController {
                     response.status(HTTP_BAD_REQUEST); //user incorrect request
                     return "Incorrect trip request.";
                 }
-                TripAdviceDto adviceDto =  adviser.getTripAdvice(tripRequest.getFrom(), tripRequest.getTo());
+                TripAdviceDto adviceDto =  adviser.getTripAdvice(tripRequest);
                 metricProvider.ReportTiming("com.appname.servername.trip.requestTime", Duration.between(start, Instant.now()).getNano()/1000000);
                 if(adviceDto.isValid())
                     return adviceDto;

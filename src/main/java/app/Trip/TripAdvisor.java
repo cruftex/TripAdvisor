@@ -4,8 +4,6 @@ import app.Model.IDirectionProvider;
 import app.Model.ITripAdvisor;
 import app.Model.IWeatherProvider;
 import app.TripRules.TripAdvicePredicate;
-import app.Weather.WeatherConfig;
-import app.Weather.WeatherDto;
 import app.Weather.WeatherProvider;
 import org.apache.log4j.Logger;
 import org.cache2k.Cache;
@@ -24,7 +22,7 @@ public class TripAdvisor implements ITripAdvisor {
 
     private IWeatherProvider weatherProvider;
     private IDirectionProvider directionProvider;
-    private Cache<String, MapDirections> directionsCache  = initCache();
+    private Cache<TripRequest, TripAdviceDto> tripCache = initCache();
 
 
     public TripAdvisor() {
@@ -34,29 +32,28 @@ public class TripAdvisor implements ITripAdvisor {
     public TripAdvisor(IWeatherProvider weatherProvider, IDirectionProvider directionProvider) {
         this.weatherProvider = weatherProvider;
         this.directionProvider = directionProvider;
-        directionsCache = initCache();
+        tripCache = initCache();
     }
 
     ///The Tripe Advice main function
-    public TripAdviceDto getTripAdvice(String from, String to) {
+    public TripAdviceDto getTripAdvice(TripRequest request) {
+        return tripCache.get(request);
+    }
+
+    //create a full trip advice calculation
+    private TripAdviceDto calcTripAdvice(TripRequest request){
         try {
-
-            //build advice response
-            TripAdviceDto tripAdvice = new TripAdviceDto(from, to);
-            //1. get directions
-            String key = from + ":" + to;
-            MapDirections directions = directionsCache.get(key);
-
+            TripAdviceDto tripAdvice = new TripAdviceDto(request);
+            //step 1 : get the map directions
+            MapDirections directions = directionProvider.getDirections(request);
             if (directions == null || directions.routes.length == 0)
                 return tripAdvice;
+            //step 2 : fill weather info
             //2. Weather -> (Parallel)
             List<StepDto> stepsDto = fetchWeatherInfo(directions);
 
             //3. Project to tripAdviceDto and calc recommendation
-            tripAdvice.setSteps(stepsDto);
-            tripAdvice.setTotalDistanceInMeters(directions.distance());
-            tripAdvice.setTotalDurationInMinutes(directions.duration());
-            tripAdvice.setTravelAdvice(TripAdvicePredicate.isTripLegal(tripAdvice));
+            tripAdvice.setTripData(stepsDto,directions.duration(),directions.distance());
             return tripAdvice;
 
         } catch (Exception e) {
@@ -65,18 +62,15 @@ public class TripAdvisor implements ITripAdvisor {
         }
     }
 
-    private  Cache<String,MapDirections> initCache() {
-        return new Cache2kBuilder<String, MapDirections>() {}
+    private  Cache<TripRequest,TripAdviceDto> initCache() {
+        return new Cache2kBuilder<TripRequest, TripAdviceDto>() {}
                 .expireAfterWrite(5, TimeUnit.MINUTES)    // expire/refresh after 5 minutes
                 .resilienceDuration(30, TimeUnit.SECONDS) // cope with at most 30 seconds
                 .entryCapacity(1000) //store last 1000 items
-                .loader(new CacheLoader<String, MapDirections>() {
+                .loader(new CacheLoader<TripRequest, TripAdviceDto>() {
                     @Override
-                    public MapDirections load(String s) throws Exception {
-                        String[] args = s.split(":");
-                        String from = args[0];
-                        String to = args[1];
-                        return directionProvider.getDirections(from, to);
+                    public TripAdviceDto load(TripRequest request) throws Exception {
+                        return calcTripAdvice(request);
                     }
                 })
                 .build();
@@ -88,7 +82,7 @@ public class TripAdvisor implements ITripAdvisor {
 
         ExecutorService executor = Executors.newWorkStealingPool();
         try {
-            executor.invokeAll(weatherCallables).stream()
+            Integer collect = executor.invokeAll(weatherCallables).stream()
                     .map(f -> {
                         try {
                             return f.get();
@@ -96,6 +90,9 @@ public class TripAdvisor implements ITripAdvisor {
                             return 0;
                         }
                     }).collect(Collectors.summingInt(Integer::intValue));
+            if(collect.intValue() != weatherCallables.size()) {
+                logger.warn("Not all weather info was gatherethed. expecting : " + weatherCallables.size() + " got :" + collect.intValue());
+            }
         } catch (InterruptedException e) {
             logger.error("Could not fetchWeatherInfo. Reason " + e.getStackTrace());
         }
