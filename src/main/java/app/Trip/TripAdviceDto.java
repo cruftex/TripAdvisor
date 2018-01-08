@@ -16,10 +16,27 @@ public class TripAdviceDto implements Validable {
     private int totalDistanceInMeters;
     private String travelAdvice;
 
-    private List<StepDto> steps;
+    public List<StepDto> steps;
+
+    public void setSteps(List<StepDto> st){
+        steps = st;
+    }
+
+    public void setTotalDurationInMinutes(int durationInMinutes) {
+        this.totalDurationInMinutes = durationInMinutes;
+    }
+
+    public void setTotalDistanceInMeters(int distance) {
+        totalDistanceInMeters = distance;
+    }
+
+    public TripAdviceDto(String from, String to){
+        this.origin  = from;
+        this.destination = to;
+    }
 
     public TripAdviceDto(TripRequest request){
-        this.origin = request.getFrom();
+        this.origin  = request.getFrom();
         this.destination = request.getTo();
     }
 
@@ -28,6 +45,10 @@ public class TripAdviceDto implements Validable {
         this.totalDistanceInMeters = totalDistance;
         this.totalDurationInMinutes = totalDuration;
         travelAdvice = TripAdvicePredicate.isTripLegal(this);
+    }
+
+    public String getTravelAdvice() {
+        return travelAdvice;
     }
 
     @Override

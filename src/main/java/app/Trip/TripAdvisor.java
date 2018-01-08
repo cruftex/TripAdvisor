@@ -1,5 +1,6 @@
 package app.Trip;
 
+
 import app.Model.IDirectionProvider;
 import app.Model.ITripAdvisor;
 import app.Model.IWeatherProvider;
@@ -36,7 +37,8 @@ public class TripAdvisor implements ITripAdvisor {
     }
 
     ///The Tripe Advice main function
-    public TripAdviceDto getTripAdvice(TripRequest request) {
+    public TripAdviceDto getTripAdvice(String from, String to) {
+        TripRequest request = new TripRequest(from,to);
         return tripCache.get(request);
     }
 
@@ -45,7 +47,7 @@ public class TripAdvisor implements ITripAdvisor {
         try {
             TripAdviceDto tripAdvice = new TripAdviceDto(request);
             //step 1 : get the map directions
-            MapDirections directions = directionProvider.getDirections(request);
+            MapDirections directions = directionProvider.getDirections(request.getFrom(),request.getTo());
             if (directions == null || directions.routes.length == 0)
                 return tripAdvice;
             //step 2 : fill weather info

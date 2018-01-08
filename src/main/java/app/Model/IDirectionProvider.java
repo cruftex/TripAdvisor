@@ -4,6 +4,6 @@ import app.Trip.MapDirections;
 import app.Trip.TripRequest;
 
 public interface IDirectionProvider {
-    MapDirections getDirections(TripRequest request);
+    MapDirections getDirections(String from, String to);
 
 }

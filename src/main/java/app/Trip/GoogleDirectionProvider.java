@@ -15,13 +15,13 @@ public class GoogleDirectionProvider implements IDirectionProvider {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    public MapDirections getDirections(TripRequest request) {
+    public MapDirections getDirections(String from, String to) {
         try {
             HttpResponse<String> directionResponse = Unirest.post(ApiEndPoint)
                     .header("accept", "application/json")
                     .queryString("key", ApiKey)
-                    .queryString("origin", request.getFrom())
-                    .queryString("destination", request.getTo())
+                    .queryString("origin", from)
+                    .queryString("destination", to)
                     .asString();
 
             MapDirections directions =  mapper.readValue(directionResponse.getBody(), MapDirections.class);

@@ -42,7 +42,7 @@ public class TripController {
                     response.status(HTTP_BAD_REQUEST); //user incorrect request
                     return "Incorrect trip request.";
                 }
-                TripAdviceDto adviceDto =  adviser.getTripAdvice(tripRequest);
+                TripAdviceDto adviceDto =  adviser.getTripAdvice(tripRequest.getFrom(),tripRequest.getTo());
                 metricProvider.ReportTiming("com.appname.servername.trip.requestTime", Duration.between(start, Instant.now()).getNano()/1000000);
                 if(adviceDto.isValid())
                     return adviceDto;
